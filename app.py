@@ -1,7 +1,13 @@
+from imp import reload
 from bottle import route, run, template, static_file, get, error
+import os
+
+@route('/')
+def index():
+    return template('index')
 
 @route('/login')
-def index():
+def login():
     return template('login')
 
 #assets routes
@@ -35,4 +41,7 @@ def error404(error):
     return template('notFound')
 
 if __name__ == '__main__':
-    run(localhost='localhost', port=8000, debug=False, reloader=True)
+    if os.environ.get('APP_ENV') == 'production':
+        run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
+    else:
+        run(host='localhost', port=8000, debug=True, reloader=True)
