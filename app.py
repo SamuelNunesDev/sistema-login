@@ -1,4 +1,3 @@
-from imp import reload
 from bottle import route, run, template, static_file, get, error
 import os
 
